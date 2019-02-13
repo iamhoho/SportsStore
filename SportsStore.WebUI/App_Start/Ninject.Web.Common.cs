@@ -59,6 +59,8 @@ namespace SportsStore.WebUI.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            //NinjectDenpendencyResolver 类与 MVC 依赖项注入支持之间的桥梁
+            System.Web.Mvc.DependencyResolver.SetResolver(new SportsStore.WebUI.Infrastructure.NinjectDenpendencyResolver(kernel));
         }        
     }
 }
