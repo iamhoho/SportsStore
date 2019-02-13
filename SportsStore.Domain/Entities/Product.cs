@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SportsStore.Domain.Entities
 {
-    public class Products
+    public class Product
     {
         //在一个独立的vs项目中定义域模型
         public int ProductId { get; set; }

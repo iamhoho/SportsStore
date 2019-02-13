@@ -1,6 +1,7 @@
 ﻿using Moq;
 using Ninject;
 using SportsStore.Domain.Abstract;
+using SportsStore.Domain.Concrete;
 using SportsStore.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -29,16 +30,7 @@ namespace SportsStore.WebUI.Infrastructure
 
         private void AddBindings()
         {
-            //数据绑定
-            Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
-            mock.Setup(m => m.Products).Returns(new List<Products>
-            {
-                new Products { Name="Surf board",Price=25},
-                new Products { Name = "Football", Price = 25 },
-                new Products { Name = "Pingpang", Price = 95 }
-            });
-            // Ninject会一直以同样的模仿对象来满足对IProductRepository接口的请求
-            kernel.Bind<IProductsRepository>().ToConstant(mock.Object);
+            kernel.Bind<IProductsRepository>().To<EFProductRepository>();
         }
     }
 }

@@ -1,5 +1,12 @@
-﻿using System;
+﻿
+using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SportsStore.WebUI.Controllers;
+using SportsStore.Domain.Entities;
+using SportsStore.Domain.Abstract;
+using Moq;
+using System.Linq;
 
 namespace SportsStore.UnitTests
 {
@@ -7,8 +14,27 @@ namespace SportsStore.UnitTests
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void Can_Paginate()
         {
+            Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product {ProductId=1,Name="P1" },
+                new Product {ProductId=2,Name="P2" },
+                new Product {ProductId=3,Name="P3" },
+                new Product {ProductId=4,Name="P4" },
+                new Product {ProductId=5,Name="P5" }
+            });
+            ProductController controller = new ProductController(mock.Object);
+            controller.PageSize = 3;
+
+            IEnumerable<Product> redult = (IEnumerable<Product>)controller.List(2).Model;
+
+
+            Product[] prodArrary = redult.ToArray();
+            Assert.IsTrue(prodArrary.Length == 2);
+            Assert.AreEqual(prodArrary[0].Name, "P4");
+            Assert.AreEqual(prodArrary[1].Name, "P5");
         }
     }
 }
