@@ -15,14 +15,16 @@ namespace SportsStore.WebUI.Controllers
         private IProductsRepository repository;
 
         public int PageSize = 4;
+        //构造函数
         public ProductController(IProductsRepository productRepository)
         {
             this.repository = productRepository;
         }
-        public ViewResult List(string category, int page = 1)
+        public ViewResult List(string category=null, int page = 1)
         {
             ProductsListViewModel model = new Models.ProductsListViewModel
             {
+                //linq
                 Products = repository.Products.Where(p => category == null || p.Category == category).OrderBy(p => p.ProductId).Skip((page - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {

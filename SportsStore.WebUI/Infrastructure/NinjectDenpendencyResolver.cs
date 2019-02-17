@@ -30,6 +30,7 @@ namespace SportsStore.WebUI.Infrastructure
 
         private void AddBindings()
         {
+            //接口通过创建的dbcontext数据，为借口绑定实例。
             kernel.Bind<IProductsRepository>().To<EFProductRepository>();
         }
     }

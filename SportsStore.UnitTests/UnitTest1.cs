@@ -7,6 +7,7 @@ using SportsStore.Domain.Entities;
 using SportsStore.Domain.Abstract;
 using Moq;
 using System.Linq;
+using SportsStore.WebUI.Models;
 
 namespace SportsStore.UnitTests
 {
@@ -28,10 +29,10 @@ namespace SportsStore.UnitTests
             ProductController controller = new ProductController(mock.Object);
             controller.PageSize = 3;
 
-            IEnumerable<Product> redult = (IEnumerable<Product>)controller.List(2).Model;
+            ProductsListViewModel redult = (ProductsListViewModel)controller.List(null,2).Model;
 
 
-            Product[] prodArrary = redult.ToArray();
+            Product[] prodArrary = redult.Products.ToArray();
             Assert.IsTrue(prodArrary.Length == 2);
             Assert.AreEqual(prodArrary[0].Name, "P4");
             Assert.AreEqual(prodArrary[1].Name, "P5");

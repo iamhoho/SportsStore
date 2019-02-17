@@ -11,7 +11,7 @@ namespace SportsStore.WebUI.Controllers
     {
         // GET: Nav
         private IProductsRepository repository;
-
+        //依赖项注入器注入参数
         public NavController(IProductsRepository repo)
         {
             repository = repo;
